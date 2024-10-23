@@ -17,6 +17,7 @@ const HotelSchema = new mongoose.Schema({
       "Bed & Breakfast",
     ],
     required: true,
+    default: "Hotel",
   },
   location: String,
   rating: {
