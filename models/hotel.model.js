@@ -15,6 +15,7 @@ const HotelSchema = new mongoose.Schema({
       "Boutique Hotel",
       "Motel",
       "Bed & Breakfast",
+      "Lodge",
     ],
     required: true,
     default: "Hotel",

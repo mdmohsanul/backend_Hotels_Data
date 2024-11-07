@@ -80,7 +80,7 @@ app.post("/hotels/:hotelId", async (req, res) => {
 async function postData(data) {
   try {
     const hotel = new Hotel(data);
-    const newHotel = await hotel.save();
+    const newHotel = hotel.save();
     return newHotel;
   } catch (error) {
     throw error;
