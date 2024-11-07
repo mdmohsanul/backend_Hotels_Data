@@ -76,6 +76,25 @@ app.post("/hotels/:hotelId", async (req, res) => {
     res.status(500).json({ error: "failed to add data" });
   }
 });
+//---------- post data route
+async function postData(data) {
+  try {
+    const hotel = new Hotel(data);
+    return hotel.save();
+  } catch (error) {
+    throw error;
+  }
+}
+app.post("/hotels", async (req, res) => {
+  try {
+    const updatedData = await postData(req.body);
+    if (updatedData.length >= 1) {
+      res.status(200).json({ message: "Hotel Added successfully" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to post new data" });
+  }
+});
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log("Server is running");

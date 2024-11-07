@@ -35,6 +35,7 @@ const HotelSchema = new mongoose.Schema({
     type: String,
     enum: ["$50 - $100", "$100 - $200", "$200 - $300", "$300+"],
     required: true,
+    default: "$50 - $100",
   },
   reservationsNeeded: Boolean,
   isParkingAvailable: Boolean,
