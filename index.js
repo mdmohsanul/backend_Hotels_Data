@@ -80,7 +80,8 @@ app.post("/hotels/:hotelId", async (req, res) => {
 async function postData(data) {
   try {
     const hotel = new Hotel(data);
-    return hotel.save();
+    const newHotel = await hotel.save();
+    return newHotel;
   } catch (error) {
     throw error;
   }
@@ -88,9 +89,8 @@ async function postData(data) {
 app.post("/hotels", async (req, res) => {
   try {
     const updatedData = await postData(req.body);
-    if (updatedData.length >= 1) {
-      res.status(200).json({ message: "Hotel Added successfully" });
-    }
+
+    res.status(200).json({ message: "Hotel Added successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to post new data" });
   }
