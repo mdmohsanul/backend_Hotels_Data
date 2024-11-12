@@ -76,7 +76,7 @@ app.post("/hotels/:hotelId", async (req, res) => {
     res.status(500).json({ error: "failed to add data" });
   }
 });
-//---------- post data route
+//---------- post data route ----------------------------------
 async function postData(data) {
   try {
     const hotel = new Hotel(data);
@@ -89,10 +89,33 @@ async function postData(data) {
 app.post("/hotels", async (req, res) => {
   try {
     const updatedData = await postData(req.body);
-
     res.status(200).json({ message: "Hotel Added successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to post new data" });
+  }
+});
+// ------------ delete with hotel id --------------------
+async function deleteHotel(id) {
+  try {
+    const hotel = await Hotel.findByIdAndDelete(id);
+    return hotel;
+  } catch (error) {
+    throw error;
+  }
+}
+app.delete("/hotels/:hotelID", async (req, res) => {
+  try {
+    const hotelId = req.params.hotelID;
+    if (hotelId) {
+      const hotelToDelete = await deleteHotel(hotelId);
+      res
+        .status(200)
+        .json({ message: "Hotel Deleted Successfully", hotel: hotelToDelete });
+    } else {
+      res.status(404).json({ error: "Failed to delete hotel" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get hotel" });
   }
 });
 const PORT = process.env.PORT;
